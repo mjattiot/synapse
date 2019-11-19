@@ -369,9 +369,9 @@ class SearchStore(SearchBackgroundUpdateStore):
         Args:
             event_id (str): The ID of the event to remove
         Returns:
-            Deferred
+            defer.Deferred
         """
-        self._simple_delete_one(
+        return self._simple_delete_one(
             table="event_search",
             keyvalues={"event_id": event_id},
             desc="remove_event_from_event_search",
