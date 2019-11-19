@@ -719,7 +719,7 @@ class EventsWorkerStore(SQLBaseStore):
             redacted_event.unsigned["redacted_by"] = redaction_id
 
             # Remove this event from future search results
-            self.remove_event_from_event_search(original_ev.event_id)
+            yield self.remove_event_from_event_search(original_ev.event_id)
 
             # It's fine to add the event directly, since get_pdu_json
             # will serialise this field correctly
