@@ -374,7 +374,7 @@ class SearchStore(SearchBackgroundUpdateStore):
         self._simple_delete_one(
             table="event_search",
             keyvalues={"event_id": event_id},
-            desc="remove_event_from_event_search"
+            desc="remove_event_from_event_search",
         )
 
     @defer.inlineCallbacks
