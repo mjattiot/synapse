@@ -363,6 +363,20 @@ class SearchStore(SearchBackgroundUpdateStore):
             ),
         )
 
+    def remove_event_from_event_search(self, event_id):
+        """Remove an event from future search results, typically when it is redacted
+
+        Args:
+            event_id (str): The ID of the event to remove
+        Returns:
+            Deferred
+        """
+        self._simple_delete_one(
+            table="event_search",
+            keyvalues={"event_id": event_id},
+            desc="remove_event_from_event_search"
+        )
+
     @defer.inlineCallbacks
     def search_msgs(self, room_ids, search_term, keys):
         """Performs a full text search over events with given keys.
@@ -378,7 +392,7 @@ class SearchStore(SearchBackgroundUpdateStore):
         """
         clauses = []
 
-        search_query = search_query = _parse_query(self.database_engine, search_term)
+        search_query = _parse_query(self.database_engine, search_term)
 
         args = []
 
@@ -487,7 +501,7 @@ class SearchStore(SearchBackgroundUpdateStore):
         """
         clauses = []
 
-        search_query = search_query = _parse_query(self.database_engine, search_term)
+        search_query = _parse_query(self.database_engine, search_term)
 
         args = []
 
